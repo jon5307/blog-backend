@@ -18,6 +18,8 @@ public class Post {
     @Column(length = 200)
     private String title;
 
+    private String summary;
+
     @Column(columnDefinition = "TEXT")
     private String content;
 
