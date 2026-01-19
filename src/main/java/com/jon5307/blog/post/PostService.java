@@ -3,9 +3,14 @@ package com.jon5307.blog.post;
 import com.jon5307.blog.EntityNotFoundException;
 import com.jon5307.blog.post.dto.PostListResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +28,11 @@ public class PostService {
         }
     }
 
-    public List<PostListResponse> getPostList() {
-        return postRepository.findAllBy();
+    public Page<PostListResponse> getPostList(int page) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createdDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return postRepository.findAllPostList(pageable);
     }
 
     public void createPost(String title, String content) {
