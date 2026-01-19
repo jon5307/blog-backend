@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.jon5307.blog.util.MarkdownUtil.toPlainText;
+
 @RequiredArgsConstructor
 @Service
 public class PostService {
@@ -39,7 +41,8 @@ public class PostService {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
-        String summary = content.length() <= 50 ? content : content.substring(0, 50);
+        String plainContent = toPlainText(content);
+        String summary = plainContent.length() <= 100 ? plainContent : plainContent.substring(0, 100);
         post.setSummary(summary);
         post.setCreatedDate(LocalDateTime.now());
         postRepository.save(post);
