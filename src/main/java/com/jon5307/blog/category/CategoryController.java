@@ -18,11 +18,6 @@ public class CategoryController {
         return categoryService.getCategoryList();
     }
 
-    @GetMapping("/detail/{id}")
-    public CategoryResponse detail(@PathVariable Long id) {
-        return categoryService.getCategory(id);
-    }
-
     @PostMapping("/create")
     public void createCategory(@RequestParam String name, @RequestParam String description) {
         categoryService.createCategory(name, description);

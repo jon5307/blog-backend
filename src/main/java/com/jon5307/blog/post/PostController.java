@@ -31,8 +31,9 @@ public class PostController {
         return postService.getPostList(categoryId, pageable);
     }
 
-    @GetMapping("/detail/{id}")
-    public PostDetailResponse getPost(@PathVariable Long id) {
+    @GetMapping("/detail")
+    public PostDetailResponse getPost(
+            @RequestParam Long id) {
         return postService.getPost(id);
     }
 
