@@ -1,5 +1,7 @@
 package com.jon5307.blog.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jon5307.blog.category.Category;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +15,7 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(length = 200)
     private String title;
@@ -25,4 +27,8 @@ public class Post {
 
     private LocalDateTime createdDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id")
+    @JsonIgnore
+    private Category category;
 }

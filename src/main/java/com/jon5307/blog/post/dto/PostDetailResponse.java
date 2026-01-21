@@ -1,22 +1,21 @@
 package com.jon5307.blog.post.dto;
 
 import com.jon5307.blog.category.dto.CategoryResponse;
-import com.jon5307.blog.post.Post;
 
 import java.time.LocalDateTime;
 
-public record PostListResponse(
+public record PostDetailResponse(
         Long id,
         String title,
-        String summary,
+        String content,
         LocalDateTime createdDate,
         CategoryResponse category
 ) {
-    public static PostListResponse from(Post post) {
-        return new PostListResponse(
+    public static PostDetailResponse from(com.jon5307.blog.post.Post post) {
+        return new PostDetailResponse(
                 post.getId(),
                 post.getTitle(),
-                post.getSummary(),
+                post.getContent(),
                 post.getCreatedDate(),
                 CategoryResponse.from(post.getCategory())
         );
