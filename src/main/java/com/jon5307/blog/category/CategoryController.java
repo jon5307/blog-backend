@@ -1,5 +1,6 @@
 package com.jon5307.blog.category;
 
+import com.jon5307.blog.category.dto.CategoryCreateRequest;
 import com.jon5307.blog.category.dto.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public void createCategory(@RequestParam String name, @RequestParam String description) {
-        categoryService.createCategory(name, description);
+    public void createCategory(@RequestBody CategoryCreateRequest request) {
+        categoryService.createCategory(request);
     }
 }

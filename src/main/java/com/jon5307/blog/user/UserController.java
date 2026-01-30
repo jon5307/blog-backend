@@ -1,10 +1,12 @@
 package com.jon5307.blog.user;
 
+import com.jon5307.blog.user.dto.LoginRequest;
+import com.jon5307.blog.user.dto.LoginResponse;
+import com.jon5307.blog.user.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -13,19 +15,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public String login(
-            @RequestParam String username,
-            @RequestParam String password) {
-        return userService.login(username, password);
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
+        return userService.login(loginRequest);
     }
 
     @PostMapping("/signup")
-    public String signup(
-            @RequestParam String username,
-            @RequestParam String email,
-            @RequestParam String password) {
-        userService.register(username, email, password);
-        return "Signup successful";
+    public ResponseEntity<?> signup(@RequestBody RegisterRequest registerRequest) {
+        userService.register(registerRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

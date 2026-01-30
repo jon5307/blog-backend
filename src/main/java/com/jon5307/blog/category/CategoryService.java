@@ -1,5 +1,6 @@
 package com.jon5307.blog.category;
 
+import com.jon5307.blog.category.dto.CategoryCreateRequest;
 import com.jon5307.blog.category.dto.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,10 @@ public class CategoryService {
         return categoryRepository.findAllBy();
     }
 
-    public void createCategory(String name, String description) {
+    public void createCategory(CategoryCreateRequest request) {
         Category category = new Category();
-        category.setName(name);
-        category.setDescription(description);
+        category.setName(request.name());
+        category.setDescription(request.description());
         categoryRepository.save(category);
     }
 

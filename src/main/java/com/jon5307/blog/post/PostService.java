@@ -3,6 +3,7 @@ package com.jon5307.blog.post;
 import com.jon5307.blog.EntityNotFoundException;
 import com.jon5307.blog.category.Category;
 import com.jon5307.blog.category.CategoryRepository;
+import com.jon5307.blog.post.dto.PostCreateRequest;
 import com.jon5307.blog.post.dto.PostDetailResponse;
 import com.jon5307.blog.post.dto.PostListResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,18 +41,18 @@ public class PostService {
         return postPage.map(PostListResponse::from);
     }
 
-    public void createPost(String title, String content, Long categoryId) {
+    public void createPost(PostCreateRequest request) {
         Post post = new Post();
         // 제목, 내용, 생성일 설정
-        post.setTitle(title);
-        post.setContent(content);
+        post.setTitle(request.title());
+        post.setContent(request.content());
         post.setCreatedDate(LocalDateTime.now());
         // 요약 설정
-        String plainContent = toPlainText(content);
+        String plainContent = toPlainText(request.content());
         String summary = plainContent.length() <= 100 ? plainContent : plainContent.substring(0, 100);
         post.setSummary(summary);
         // 카테고리 설정
-        Optional<Category> category = categoryRepository.findById(categoryId);
+        Optional<Category> category = categoryRepository.findById(request.categoryId());
         if (category.isPresent()) {
             post.setCategory(category.get());
         } else {

@@ -1,5 +1,6 @@
 package com.jon5307.blog.post;
 
+import com.jon5307.blog.post.dto.PostCreateRequest;
 import com.jon5307.blog.post.dto.PostDetailResponse;
 import com.jon5307.blog.post.dto.PostListResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public void createPost(@RequestParam String title, @RequestParam String content, @RequestParam Long categoryId) {
-        postService.createPost(title, content, categoryId);
+    public void createPost(@RequestBody PostCreateRequest request) {
+        postService.createPost(request);
     }
 }
